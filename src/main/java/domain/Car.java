@@ -10,18 +10,19 @@ public class Car {
 
     // 추가 기능 구현
     public void move() {
-    	int num = (int)(Math.random()*10);
+    	int num = (int)(Math.random() * 10);
     	
-    	if(num >= 4) {
+    	if (num >= 4) {
     		position++;
     	}
     }
+    
     public void showName() {
     	System.out.print(name + " : ");
     }
     
     public void showPosition() {
-    	for( int i=0 ; i<position ; i++) {
+    	for(int i = 0; i < position; i++) {
     		System.out.print("-");
     	}
     }

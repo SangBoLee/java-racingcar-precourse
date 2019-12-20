@@ -1,7 +1,7 @@
 package domain;
 
 public class Car {
-	private final String name;
+    private final String name;
     private int position = 0;
 
     public Car(String name) {
@@ -16,7 +16,7 @@ public class Car {
     		position++;
     	}
     }
-    
+	
     public void showName() {
     	System.out.print(name + " : ");
     }

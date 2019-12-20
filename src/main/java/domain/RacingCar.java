@@ -5,22 +5,19 @@ import java.util.Vector;
 
 public class RacingCar {
 	
-	static Vector <Car> cars = new Vector <Car>();
-	static Vector <String> winners = new Vector <String>();
-	
-	static void showWinners() {
+	static void showWinners(Vector <String> winners) {
 		int winnersCnt;
 		
 		winnersCnt = winners.size();
 		
-		for(int i = 0; i < winnersCnt - 1; i++) {
+		for (int i = 0; i < winnersCnt - 1; i++) {
 			System.out.print(winners.get(i) + ", ");
 		}
 		
 		System.out.println(winners.lastElement() + "가 최종 우승했습니다.");
 	}
 	
-	static void getWinners(int Max) {
+	static void getWinners(Vector <String> winners, Vector <Car> cars, int Max) {
 		int position;
 		int carCnt = cars.size();
 		
@@ -28,13 +25,13 @@ public class RacingCar {
 			Car car = cars.get(i);
 			position = car.getPosition();
 			
-			if (Max == position) {
+			if(Max == position) {
 				winners.add(car.getName());
 			}
 		}
 	}
 	
-	static int getMax() {
+	static int getMax(Vector <Car> cars) {
 		int carCnt = cars.size();
 		int Max = 0;
 		int position;
@@ -43,7 +40,7 @@ public class RacingCar {
 			Car car = cars.get(i);
 			position = car.getPosition();
 			
-			if (Max < position) {
+			if(Max < position) {
 				Max = position;
 			}
 		}
@@ -51,7 +48,7 @@ public class RacingCar {
 		return Max;
 	}
 	
-	static void moveCars() {
+	static void moveCars(Vector <Car> cars) {
 		int carCnt = cars.size();
 		
 		for (int i = 0; i < carCnt; i++) {
@@ -59,14 +56,15 @@ public class RacingCar {
 			car.move();
 			car.showName();
 			car.showPosition();
+			cars.setElementAt(car, i);
 			System.out.println();
 		}
 	}
 	
-	static void showResult(int tryCnt) {
+	static void showResult(Vector <Car> cars, int tryCnt) {
 		System.out.println("실행결과");
 		for (int i = 0; i < tryCnt; i++) {
-			moveCars();
+			moveCars(cars);
 			System.out.println();
 		}
 	}
@@ -82,20 +80,20 @@ public class RacingCar {
 		return input;
 	}
 	
-	static void makeCars(String[] carNames) {
+	static void makeCars(Vector <Car> cars, String[] carNames) {
 		int length;
 		
 		for (String name : carNames) {
 			length = name.length();
 			
-			if (length <= 5) {
+			if(length <= 5) {
 				Car car = new Car(name);
 				cars.add(car);
 			}
 		}
 	}
 	
-	static void getNames() {
+	static void getNames(Vector <Car> cars) {
 		String names;
 		String[] carNames;
 		Scanner scanner = new Scanner(System.in);
@@ -104,19 +102,21 @@ public class RacingCar {
 		names = scanner.nextLine();
 		carNames = names.split(",");
 		
-		makeCars(carNames);
+		makeCars(cars, carNames);
 	}
 
 	public static void main(String[] args) {
+		Vector <Car> cars = new Vector <Car>();
+		Vector <String> winners = new Vector <String>();
 		int Max;
 		int tryCnt;
 		
-		getNames();
+		getNames(cars);
 		tryCnt = getTryCnt();
-		showResult(tryCnt);
-		Max = getMax();
-		getWinners(Max);
-		showWinners();
+		showResult(cars, tryCnt);
+		Max = getMax(cars);
+		getWinners(winners, cars, Max);
+		showWinners(winners);
 	}
 
 }
